@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VK VWS Plugin Beta Tester 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vk-vws-plugin-beta-tester\n"
+"POT-Creation-Date: 2026-03-02T23:56:39+00:00\n"
+"PO-Revision-Date: 2026-03-02 00:00+0000\n"
+"Last-Translator: Vektor,Inc.\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: manually\n"
+
+#. Plugin Name of the plugin
+#: vk-vws-plugin-beta-tester.php
+msgid "VK VWS Plugin Beta Tester"
+msgstr "VK VWS プラグイン ベータテスター"
+
+#. Description of the plugin
+#: vk-vws-plugin-beta-tester.php
+msgid "Enables beta channel for VWS plugins (VK Blocks Pro, Lightning Pro, etc.). When activated, you will receive beta versions instead of stable releases."
+msgstr "VWSプラグイン（VK Blocks Pro、Lightning Proなど）のベータチャンネルを有効にします。有効化すると、安定版ではなくベータ版の更新を受け取ります。"
+
+#: vk-vws-plugin-beta-tester.php:127
+msgid "[Beta Tester] Beta version is currently installed"
+msgstr "[ベータテスター] ベータ版がインストールされています"
+
+#. translators: %s: Plugin name and version (e.g. "VK Blocks Pro 1.118.0.0-beta1")
+#: vk-vws-plugin-beta-tester.php:133
+#, php-format
+msgid "You are running a beta version: %s"
+msgstr "現在ベータ版を使用中: %s"
+
+#: vk-vws-plugin-beta-tester.php:139
+msgid "Do not use beta versions in production environments."
+msgstr "ベータ版は本番環境では使用しないでください。"
+
+#: vk-vws-plugin-beta-tester.php:143
+msgid "To return to the stable version: deactivate this plugin, then wait for the next stable release — or manually re-install the stable version via the plugins screen."
+msgstr "安定版に戻すには: このプラグインを無効化してください。次の安定版がリリースされると自動的に安定版が提供されます。すぐに戻したい場合はプラグイン画面から安定版を手動で再インストールしてください。"
+
+#: vk-vws-plugin-beta-tester.php:151
+msgid "Report a bug on the VWS support forum"
+msgstr "VWSサポートフォーラムにバグを報告する"

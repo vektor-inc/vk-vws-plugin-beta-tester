@@ -46,7 +46,17 @@ class VK_VWS_Plugin_Beta_Tester {
 	 * Constructor
 	 */
 	public function __construct() {
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
+	}
+
+	/**
+	 * Load plugin textdomain
+	 *
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'vk-vws-plugin-beta-tester', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
