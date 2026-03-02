@@ -56,7 +56,7 @@ class VK_VWS_Plugin_Beta_Tester {
 	 */
 	public function init() {
 		// Hook into each supported plugin's update check filter
-		foreach ( $this->supported_plugins as $slug => $config ) {
+		foreach ( $this->supported_plugins as $config ) {
 			if ( ! empty( $config['filter_hook'] ) ) {
 				add_filter( $config['filter_hook'], array( $this, 'add_beta_channel' ), 10, 1 );
 			}
@@ -146,40 +146,14 @@ class VK_VWS_Plugin_Beta_Tester {
 					);
 					?>
 				</p>
+				<p>
+					<a href="https://vws.vektor-inc.co.jp/forums" target="_blank" rel="noopener noreferrer">
+						<?php esc_html_e( 'Report a bug on the VWS support forum', 'vk-vws-plugin-beta-tester' ); ?>
+					</a>
+				</p>
 			</div>
 			<?php
-			// Already showed a notice; no need to show the general notice below.
-			return;
 		}
-
-		// General notice: beta channel is active but no beta version installed yet.
-		// Only show on the plugins screen to avoid noise across all admin pages.
-		if ( 'plugins' !== $screen->id ) {
-			return;
-		}
-
-		?>
-		<div class="notice notice-warning">
-			<p>
-				<strong><?php esc_html_e( 'VK VWS Plugin Beta Tester is active', 'vk-vws-plugin-beta-tester' ); ?></strong>
-			</p>
-			<p>
-				<?php
-				printf(
-					/* translators: %s: Comma-separated list of plugin names */
-					esc_html__( 'You are now receiving beta versions of: %s', 'vk-vws-plugin-beta-tester' ),
-					'<strong>' . esc_html( implode( ', ', $plugin_names ) ) . '</strong>'
-				);
-				?>
-			</p>
-			<p>
-				<?php esc_html_e( 'Beta versions may contain bugs or unfinished features. Do not use in production environments.', 'vk-vws-plugin-beta-tester' ); ?>
-			</p>
-			<p>
-				<?php esc_html_e( 'To return to stable versions, deactivate this plugin. Your plugins will switch back to stable releases when the next stable version is available.', 'vk-vws-plugin-beta-tester' ); ?>
-			</p>
-		</div>
-		<?php
 	}
 
 	/**
