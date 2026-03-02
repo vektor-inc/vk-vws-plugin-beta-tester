@@ -18,8 +18,7 @@ VWS（Vektor WordPress Solutions）プラグインのベータ版を受け取る
 ## 対応プラグイン
 
 - ✅ VK Blocks Pro
-- 🔜 Lightning Pro（今後対応予定）
-- 🔜 その他VWSプラグイン
+- 🔜 その他VWSプラグイン(もし追加する時があれば)
 
 ## インストール
 
