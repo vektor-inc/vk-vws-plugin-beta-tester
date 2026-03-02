@@ -69,6 +69,17 @@ class VK_VWS_Plugin_Beta_Tester {
 	}
 
 	/**
+	 * Check if a plugin version string looks like a beta/pre-release version.
+	 * Detects patterns like: 1.118.0.0-beta1, beta_1.118.0.0, 1.118.0.0-rc1, 1.118.0.0-pre1
+	 *
+	 * @param string $version Version string to check.
+	 * @return bool True if the version looks like a beta/pre-release version.
+	 */
+	public function is_beta_version( $version ) {
+		return (bool) preg_match( '/beta|rc|pre|alpha/i', $version );
+	}
+
+	/**
 	 * Add beta channel parameter to update check query
 	 *
 	 * @param array $query_args Query arguments for update check.
@@ -85,15 +96,66 @@ class VK_VWS_Plugin_Beta_Tester {
 	 * @return void
 	 */
 	public function show_admin_notice() {
-		// Only show on plugins page
 		$screen = get_current_screen();
-		if ( ! $screen || 'plugins' !== $screen->id ) {
+		if ( ! $screen ) {
 			return;
 		}
 
-		$plugin_names = array();
-		foreach ( $this->supported_plugins as $config ) {
+		// Collect plugin names and detect any currently-installed beta versions.
+		$plugin_names        = array();
+		$installed_beta_info = array();
+
+		foreach ( $this->supported_plugins as $slug => $config ) {
 			$plugin_names[] = $config['name'];
+
+			// Try to read the installed version from the plugin file header.
+			$plugin_file = WP_PLUGIN_DIR . '/' . $slug . '/' . $slug . '.php';
+			if ( file_exists( $plugin_file ) ) {
+				$data    = get_file_data( $plugin_file, array( 'Version' => 'Version' ) );
+				$version = ! empty( $data['Version'] ) ? $data['Version'] : '';
+				if ( $version && $this->is_beta_version( $version ) ) {
+					$installed_beta_info[] = $config['name'] . ' ' . $version;
+				}
+			}
+		}
+
+		// If a beta version is currently installed, show an error-level notice on all admin screens.
+		if ( ! empty( $installed_beta_info ) ) {
+			?>
+			<div class="notice notice-error">
+				<p>
+					<strong><?php esc_html_e( '[Beta Tester] Beta version is currently installed', 'vk-vws-plugin-beta-tester' ); ?></strong>
+				</p>
+				<p>
+					<?php
+					printf(
+						/* translators: %s: Plugin name and version (e.g. "VK Blocks Pro 1.118.0.0-beta1") */
+						esc_html__( 'You are running a beta version: %s', 'vk-vws-plugin-beta-tester' ),
+						'<strong>' . esc_html( implode( ', ', $installed_beta_info ) ) . '</strong>'
+					);
+					?>
+				</p>
+				<p>
+					<?php esc_html_e( 'Do not use beta versions in production environments.', 'vk-vws-plugin-beta-tester' ); ?>
+				</p>
+				<p>
+					<?php
+					esc_html_e(
+						'To return to the stable version: deactivate this plugin, then wait for the next stable release — or manually re-install the stable version via the plugins screen.',
+						'vk-vws-plugin-beta-tester'
+					);
+					?>
+				</p>
+			</div>
+			<?php
+			// Already showed a notice; no need to show the general notice below.
+			return;
+		}
+
+		// General notice: beta channel is active but no beta version installed yet.
+		// Only show on the plugins screen to avoid noise across all admin pages.
+		if ( 'plugins' !== $screen->id ) {
+			return;
 		}
 
 		?>
