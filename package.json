@@ -1,0 +1,16 @@
+{
+  "name": "vk-vws-plugin-beta-tester",
+  "version": "0.1.0",
+  "description": "VK VWS Plugin Beta Tester",
+  "scripts": {
+    "build:pot": "wp i18n make-pot --skip-js . languages/vk-vws-plugin-beta-tester.pot",
+    "update-po": "npm run build:pot && node bin/update-po.js languages/vk-vws-plugin-beta-tester-ja.po languages/vk-vws-plugin-beta-tester.pot",
+    "translate": "cd languages && wp i18n make-php . && cd ../"
+  },
+  "author": "Vektor,Inc.",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "encoding": "^0.1.13",
+    "gettext-parser": "8.0.0"
+  }
+}
