@@ -118,8 +118,6 @@ private $supported_plugins = array(
 ## バグ報告
 
 ベータ版で問題を見つけた場合、以下の方法で報告してください：
-
-- **GitHub Issues**（推奨）: [vk-blocks-pro/issues](https://github.com/vektor-inc/vk-blocks-pro/issues)
 - **VWS サポートフォーラム**: [VWS フォーラム](https://vws.vektor-inc.co.jp/forums/)
 - **Discord コミュニティ**: [Vektor Discord](https://discord.gg/vektor)
 
