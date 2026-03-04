@@ -34,6 +34,7 @@ class VK_VWS_Plugin_Beta_Tester {
 		'vk-blocks-pro' => array(
 			'name'        => 'VK Blocks Pro',
 			'filter_hook' => 'vk_blocks_pro_vws_update_check_query_args',
+			'main_file'   => 'vk-blocks.php',
 		),
 		// Future support (uncomment when ready):
 		// 'lightning-pro' => array(
@@ -119,7 +120,8 @@ class VK_VWS_Plugin_Beta_Tester {
 			$plugin_names[] = $config['name'];
 
 			// Try to read the installed version from the plugin file header.
-			$plugin_file = WP_PLUGIN_DIR . '/' . $slug . '/' . $slug . '.php';
+			$main_file   = ! empty( $config['main_file'] ) ? $config['main_file'] : $slug . '.php';
+			$plugin_file = WP_PLUGIN_DIR . '/' . $slug . '/' . $main_file;
 			if ( file_exists( $plugin_file ) ) {
 				$data    = get_file_data( $plugin_file, array( 'Version' => 'Version' ) );
 				$version = ! empty( $data['Version'] ) ? $data['Version'] : '';
@@ -129,8 +131,8 @@ class VK_VWS_Plugin_Beta_Tester {
 			}
 		}
 
-		// If a beta version is currently installed, show an error-level notice on all admin screens.
 		if ( ! empty( $installed_beta_info ) ) {
+			// If a beta version is currently installed, show an error-level notice on all admin screens.
 			?>
 			<div class="notice notice-error">
 				<p>
@@ -160,6 +162,21 @@ class VK_VWS_Plugin_Beta_Tester {
 					<a href="https://vws.vektor-inc.co.jp/forums" target="_blank" rel="noopener noreferrer">
 						<?php esc_html_e( 'Report a bug on the VWS support forum', 'vk-vws-plugin-beta-tester' ); ?>
 					</a>
+				</p>
+			</div>
+			<?php
+		} else {
+			// No beta installed — show info notice so the user knows the plugin is active.
+			?>
+			<div class="notice notice-info">
+				<p>
+					<?php
+					printf(
+						/* translators: %s: comma-separated list of plugin names (e.g. "VK Blocks Pro, Lightning Pro") */
+						esc_html__( '[Beta Tester] Beta channel is active for %s. You will automatically receive the next beta release.', 'vk-vws-plugin-beta-tester' ),
+						'<strong>' . esc_html( implode( ', ', $plugin_names ) ) . '</strong>'
+					);
+					?>
 				</p>
 			</div>
 			<?php
