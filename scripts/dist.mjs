@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const projectRoot = process.cwd();
-const projectName = path.basename(projectRoot);
+const packageJsonPath = path.join(projectRoot, 'package.json');
+const packageName = getPackageName(packageJsonPath);
+const projectName = packageName || path.basename(projectRoot);
 const distRoot = path.join(projectRoot, 'dist');
 const outputDir = path.join(distRoot, projectName);
 
@@ -12,6 +14,19 @@ fs.mkdirSync(outputDir, { recursive: true });
 copyDirectory(projectRoot, outputDir, true);
 
 console.log(`Created: ${outputDir}`);
+
+function getPackageName(packagePath) {
+	if (!fs.existsSync(packagePath)) {
+		return '';
+	}
+
+	try {
+		const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+		return typeof packageJson.name === 'string' ? packageJson.name : '';
+	} catch {
+		return '';
+	}
+}
 
 function copyDirectory(sourceDir, targetDir, isRoot = false) {
 	const entries = fs.readdirSync(sourceDir, { withFileTypes: true });
@@ -25,7 +40,7 @@ function copyDirectory(sourceDir, targetDir, isRoot = false) {
 		}
 
 		if (entry.isDirectory()) {
-			if (isRoot && entry.name === 'dist') {
+			if (isRoot && (entry.name === 'dist' || entry.name === 'node_modules')) {
 				continue;
 			}
 
