@@ -1,0 +1,9 @@
+{
+  "name": "vk-vws-plugin-beta-tester",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dist": "node ./scripts/dist.mjs",
+    "zip": "npm run dist && rm -f ./dist/vk-vws-plugin-beta-tester.zip && cd ./dist && zip -r vk-vws-plugin-beta-tester.zip vk-vws-plugin-beta-tester"
+  }
+}

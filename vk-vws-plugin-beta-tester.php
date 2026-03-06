@@ -3,7 +3,7 @@
  * Plugin Name: VK VWS Plugin Beta Tester
  * Plugin URI: https://github.com/vektor-inc/vk-vws-plugin-beta-tester
  * Description: Enables beta channel for VWS plugins (VK Blocks Pro, Lightning Pro, etc.). When activated, you will receive beta versions instead of stable releases.
- * Version: 0.1.0
+ * Version: 0.0.0
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Author: Vektor,Inc.
