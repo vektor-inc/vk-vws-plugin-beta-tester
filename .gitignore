@@ -44,6 +44,8 @@ temp/
 **/.clineignore
 **/CLAUDE.md
 **/.claude/memories/
+**/.claude/skills/
+**/.codex/skills/
 **/codex.md
 **/.codexignore
 **/.roo/rules/
