@@ -1,6 +1,6 @@
 ## 関連Issue
 <!-- 関連するIssueやチケットがあればリンクを貼ってください -->
-- 関連Issue: #[issue番号]
+- 関連Issue: https://github.com/vektor-inc/vk-vws-plugin-beta-tester/issues/[issue番号]
 
 ## 変更の目的・理由
 <!-- なぜこの変更が必要なのか、どのような問題を解決するのかを記載してください -->
